@@ -9,6 +9,4 @@
 
 ## Installation
 
-Follow the [tutorial](https://www.youtube.com/watch?v=EIkGTwLOD7o)
-
-
+Follow the [tutorial](https://www.youtube.com/watch?v=EIkGTwLOD7o).
