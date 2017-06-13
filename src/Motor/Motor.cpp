@@ -7,8 +7,6 @@ Motor::Motor(char pin1, char pin2, int pwm) {
 }
 
 void Motor::setup() {
-  this->servoMotor.attach(SERVO_MOTOR_PWM_PIN);
-  this->servoMotor.write(180);
   pinMode(this->_pin1, OUTPUT); //Initiates Motor Channel A pin
   pinMode(this->_pin2, OUTPUT); //Initiates Brake Channel A pin
   Serial.begin(9600);
