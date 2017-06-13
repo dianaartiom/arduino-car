@@ -6,7 +6,7 @@ Bluetooth::Bluetooth(char rx, char tx) {
 }
 
 void Bluetooth::read(char data) {
-  
+
   if(Serial.available() > 0)      // Send data only when you receive data:
   {
      data = Serial.read();        //Read the incoming data & store into data
