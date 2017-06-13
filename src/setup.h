@@ -5,3 +5,7 @@
 #define BLUETOOTH_TX 1
 #define BLUETOOTH_RX 0
 #define LED_TMP 13
+// #define MOTOR_ENABLE 9
+// #define MOTOR_FORWARD 3
+// #define MOTOR_REVERSE 4
+
