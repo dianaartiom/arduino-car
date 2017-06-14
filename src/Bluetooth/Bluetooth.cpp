@@ -3,19 +3,28 @@
 Bluetooth::Bluetooth(char rx, char tx) {
   this->_rx = rx;
   this->_tx = tx;
+  this->_value = 0;
 }
 
-void Bluetooth::read(char data) {
+void Bluetooth::read(int data) {
 
-  if(Serial.available() > 0)      // Send data only when you receive data:
-  {
+  if(Serial.available() > 0) {      // Send data only when you receive data:
+
      data = Serial.read();        //Read the incoming data & store into data
+     Serial.print("Command: ");
      Serial.print(data);          //Print Value inside data in Serial monitor
      Serial.print("\n");
-     if(data == '1')              // Checks whether value of data is equal to 1
-        digitalWrite(13, HIGH);   //If value is 1 then LED turns ON
-     else if(data == '0')         //  Checks whether value of data is equal to 0
-        digitalWrite(13, LOW);    //If value is 0 then LED turns OFF
+     this->_value = data;
+    //  if(data == '1') {             // Checks whether value of data is equal to 1
+    //     digitalWrite(13, HIGH);   //If value is 1 then LED turns ON
+    //     Serial.print("Moving forward\n");
+    //  } else if(data == '0') {        //  Checks whether value of data is equal to 0
+    //     digitalWrite(13, LOW);    //If value is 0 then LED turns OFF
+    //   }
   }
   return;
+}
+
+int Bluetooth::getValue() {
+  return this->_value;
 }

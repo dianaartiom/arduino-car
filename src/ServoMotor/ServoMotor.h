@@ -10,12 +10,15 @@ class ServoMotor {
 private:
   Servo servoMotor;
   int _pwm;
+  int _value;
 
 public:
   ServoMotor();
-  ServoMotor(int pwm);
-  void setup();
+  ServoMotor(int pwm, int value);
+  void setup(int value);
   void update(int);
+  int getValue();
+  void setValue(int);
   ~ServoMotor();
 };
 

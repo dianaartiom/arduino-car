@@ -8,11 +8,13 @@ class Bluetooth {
 private:
   char _rx;
   char _tx;
+  int _value;
 
 public:
   Bluetooth(char rx, char tx);
-  void read(char data);
+  void read(int data);
   ~Bluetooth();
+  int getValue();
 };
 
 #endif

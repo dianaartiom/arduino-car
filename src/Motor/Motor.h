@@ -9,13 +9,16 @@ class Motor {
 private:
   char _pin1;
   char _pin2;
-  int _pwm;
+  int _pwmPin;
+  bool _direction;
 
 public:
   Motor();
-  Motor(char pin1, char pin2, int pwm);
+  Motor(char pin1, char pin2, int pwmPin);
   void setup();
-  void run(int pwm, char direction);
+  void run(int pwm);
+  void back(int pwm);
+  void stop();
   ~Motor();
 };
 
