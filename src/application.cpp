@@ -3,9 +3,18 @@
 bool motorRun = false;
 bool motorStop = false;
 bool motorBack = false;
-int counter = 0; /* updates the angle for ServoMotor */
+bool isMovingLeft = false;
+bool isMovingRight = false;
+bool isDecrementingLeft = false;
+bool isDecrementingRight = false;
+void incCounter(ServoMotor *servoMotor, int _counter);
+void decCounter(ServoMotor *servoMotor, int _counter);
+
+int counter = 90; /* updates the angle for ServoMotor */
 
 void run(Bluetooth *bluetooth, Motor *motor, ServoMotor *servoMotor) {
+  Serial.print(counter);
+  Serial.print("\n");
   switch (bluetooth->getValue()) {
     case 0:
       motorStop = true;
@@ -23,40 +32,60 @@ void run(Bluetooth *bluetooth, Motor *motor, ServoMotor *servoMotor) {
       motorBack = true;
       break;
     case 3:
-      counter +=1;
-      servoMotor->update(servoMotor->getValue() + counter);
-      Serial.print("Servo running left. Value: ");
-      Serial.print(servoMotor->getValue() + counter);
-      Serial.print("\n");
+      if (counter >= 90 && counter < 180) {
+        Serial.print("In 3. \n");
+        isMovingLeft = true;
+        isDecrementingLeft = false;
+        isMovingRight = false;
+        isDecrementingRight = false;
+      }
       break;
     case 13:
-      Serial.print("O intrat\n");
-      while (counter >= 0) {
-        counter--;
-        servoMotor->update(servoMotor->getValue() + counter);
-        Serial.print("Servo repositioning from left. Value: ");
-        Serial.print(servoMotor->getValue() + counter);
-        Serial.print("\n");
+      if (counter > 90 && counter <= 180) {
+        Serial.print("In 13. \n");
+        isMovingLeft = false;
+        isDecrementingLeft = true;
+        isMovingRight = false;
+        isDecrementingRight = false;
       }
       break;
     case 4:
-      counter +=1;
-      servoMotor->update(servoMotor->getValue() + counter);
-      Serial.print("Servo running right. Value: ");
-      Serial.print(servoMotor->getValue() + counter);
-      Serial.print("\n");
+      if (counter >0 && counter <= 90) {
+        Serial.print("In 4. \n");
+        isMovingLeft = false;
+        isDecrementingLeft = false;
+        isMovingRight = true;
+        isDecrementingRight = false;
+      }
       break;
     case 14:
-      while (counter >= 0) {
-        counter--;
-        servoMotor->update(servoMotor->getValue() + counter);
-        servoMotor->update(servoMotor->getValue() + counter);
-        Serial.print("Servo repositioning from right. Value: ");
-        Serial.print(servoMotor->getValue() + counter);
-        Serial.print("\n");
-      }
+    if (counter >=0 && counter < 90) {
+      Serial.print("In 14. \n");
+      isMovingLeft = false;
+      isDecrementingLeft = false;
+      isMovingRight = false;
+      isDecrementingRight = true;
+    }
     default:
       Serial.print("Poyavilosi huinea\n");
+  }
+
+  if (isMovingLeft) {
+    if (counter >= 90 && counter < 180) {
+      incCounter(servoMotor,counter);
+    }
+  } else if (isMovingRight) {
+    if (counter >0 && counter <= 90) {
+      decCounter(servoMotor, counter);
+    }
+  } else if (isDecrementingLeft) {
+    if (counter > 90 && counter <= 180) {
+      decCounter(servoMotor, counter);
+    }
+  } else if (isDecrementingRight) {
+    if (counter >=0 && counter < 90) {
+      incCounter(servoMotor, counter);
+    }
   }
 
   if (motorStop) {
@@ -72,4 +101,20 @@ void run(Bluetooth *bluetooth, Motor *motor, ServoMotor *servoMotor) {
   }
 
   return;
+}
+
+void decCounter(ServoMotor *servoMotor, int _counter) {
+  counter -= 9;
+  servoMotor->update(_counter);
+  Serial.print("Servo decrementing right. Value: ");
+  Serial.print(counter);
+  Serial.print("\n");
+}
+
+void incCounter(ServoMotor *servoMotor, int _counter) {
+  counter += 9;
+  servoMotor->update(_counter);
+  Serial.print("Servo decrementing right. Value: ");
+  Serial.print(counter);
+  Serial.print("\n");
 }
