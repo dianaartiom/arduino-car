@@ -1,8 +1,7 @@
 #include "ServoMotor.h"
 
-ServoMotor::ServoMotor(int pwm, int value) {
-  this->_pwm = pwm;
-  this->_value = value;
+ServoMotor::ServoMotor(int pwmPin) {
+  this->_pwmPin = pwmPin;
 }
 
 void ServoMotor::setup(int value) {
@@ -13,13 +12,4 @@ void ServoMotor::setup(int value) {
 
 void ServoMotor::update(int angle) {
   this->servoMotor.write(angle);
-}
-
-void ServoMotor::setValue(int value) {
-  this->_value = value;
-  return;
-}
-
-int ServoMotor::getValue() {
-  return this->_value;
 }

@@ -4,7 +4,6 @@ Motor::Motor(char pin1, char pin2, int pwmPin) {
   this->_pin1 = pin1;
   this->_pin2 = pin2;
   this->_pwmPin = pwmPin;
-  this->_direction = 1;
 }
 
 void Motor::setup() {

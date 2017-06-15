@@ -10,7 +10,6 @@ private:
   char _pin1;
   char _pin2;
   int _pwmPin;
-  bool _direction;
 
 public:
   Motor();
